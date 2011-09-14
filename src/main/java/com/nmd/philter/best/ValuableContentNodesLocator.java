@@ -1,7 +1,5 @@
-package com.nmd.philter;
+package com.nmd.philter.best;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.htmlcleaner.ContentNode;
 import org.htmlcleaner.HtmlNode;
 import org.htmlcleaner.TagNode;
@@ -18,15 +16,11 @@ import static com.nmd.philter.util.CollectionTools.newArrayList;
 public class ValuableContentNodesLocator implements TagNodeVisitor {
 
     private static final int MIN_RATE = 20;
-    
+
     private final List<ValuableNode> valuableNodes;
-    
-    private final Log log;
 
     public ValuableContentNodesLocator() {
         this.valuableNodes = newArrayList();
-
-        this.log = LogFactory.getLog(getClass());
     }
 
     public boolean visit(TagNode parent, HtmlNode candidate) {
@@ -37,10 +31,8 @@ public class ValuableContentNodesLocator implements TagNodeVisitor {
                 final ContentNode contentNode = (ContentNode) candidate;
 
                 final int rate = getRate(contentNode);
-                
-                if (rate > MIN_RATE) {
-                    //log.info(parent.getName() + " :: " + rate +  " :: " + contentNode.getContent());
 
+                if (rate > MIN_RATE) {
                     valuableNodes.add(new ValuableNode(contentNode, parent, parent.getParent(), rate));
                 }
             }
@@ -54,18 +46,7 @@ public class ValuableContentNodesLocator implements TagNodeVisitor {
     }
 
     private boolean candidateNode(TagNode node) {
-
-        if (node == null) {
-            return false;
-        }
-
-        return node.getName().equalsIgnoreCase("p") || node.getName().equalsIgnoreCase("div");
-    }
-
-    private boolean contentFound(String text) {
-        final String cleaned = text.replaceAll("\\s", "");
-
-        return !cleaned.isEmpty();
+        return node != null && (node.getName().equalsIgnoreCase("p") || node.getName().equalsIgnoreCase("div"));
     }
 
     private int getRate(ContentNode node) {

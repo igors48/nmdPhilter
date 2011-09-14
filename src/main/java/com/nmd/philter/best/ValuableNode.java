@@ -1,11 +1,11 @@
-package com.nmd.philter;
+package com.nmd.philter.best;
 
 import com.nmd.philter.util.Assert;
 import org.htmlcleaner.ContentNode;
 import org.htmlcleaner.TagNode;
 
 /**
- * Author: Igor Usenko ( Igor.Usenko@teamodc.com )
+ * Author: Igor Usenko ( igors48@gmail.com )
  * Date: 14.09.2011
  */
 public class ValuableNode {
@@ -44,4 +44,5 @@ public class ValuableNode {
     public int getRate() {
         return rate;
     }
+
 }
